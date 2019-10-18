@@ -8,3 +8,20 @@
   (reduce #(apply conj %1 (loop [i 0 list1 '()]
                             (if (< i n) (recur (inc i) (conj list1 %2)) list1)
                             )) '() (reverse myList)))
+
+;; Task #28
+;; Write a function which flattens a sequence.
+;; Input: '(1 (3 (5 6) 9 8) 99)
+;; Output: '(1 3 5 6 9 8 99)
+
+(fn fun [dataList]
+  (loop [xList dataList
+        result '()]    
+    (cond
+      (empty? xList) (reverse result)
+      (sequential? (first xList))
+        (recur (rest xList) (apply conj result (fun (first xList)) ) )
+      :else (recur (rest xList) (conj result (first xList)))
+    )
+  )
+)
