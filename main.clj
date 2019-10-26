@@ -53,5 +53,18 @@
   )
 )
 
+;; Task 97
+;; Pascal's Triangle
+;; (= (map __ (range 1 6))
+;;   [     [1]
+;;        [1 1]
+;;       [1 2 1]
+;;      [1 3 3 1]
+;;     [1 4 6 4 1]])
 
-
+(fn fun [n]
+  (cond
+    (<= n 1) '(1)
+    :else  (concat [1] (map #(apply + %) (partition 2 1 (fun (dec n)))) [1])
+  )
+)
