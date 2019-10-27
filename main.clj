@@ -68,3 +68,20 @@
     :else  (concat [1] (map #(apply + %) (partition 2 1 (fun (dec n)))) [1])
   )
 )
+
+;; Task 95
+;; 
+;; Write a predicate which checks whether or not a given sequence represents a binary tree. 
+;; Each node in the tree must have a value, a left child, and a right child.
+;;  (= (__ [1 [2 [3 [4 false nil] nil] nil] nil])
+;;     false)
+;;  (= (__ [1 [2 [3 [4 nil nil] nil] nil] nil])
+;;      true)
+
+(fn fun [coll]
+  (cond
+    (not (coll? coll)) (nil? coll)
+    (not= (count coll) 3) false
+    :else (every? fun (rest coll))
+  )
+)
