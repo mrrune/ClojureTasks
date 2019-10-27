@@ -85,3 +85,25 @@
     :else (every? fun (rest coll))
   )
 )
+
+;; Task 120
+;; Write a function which takes a collection of integers as an argument. 
+;; Return the count of how many elements are smaller than the sum of their squared component digits. 
+;; For example: 10 is larger than 1 squared plus 0 squared; whereas 15 is smaller than 1 squared plus 5 squared.
+;; (= 8 (__ (range 10)))
+;; (= 50 (__ (range 100)))
+
+(fn [col]
+  (count (filter true?
+    (map #(loop [x % sum 0]
+          (if (> x 0)
+            (recur (int (/ x 10))
+              (+ sum (* (mod x 10) (mod x 10) ))
+            )
+            (< % sum)
+          )          
+        )  
+    col)
+  ))
+)
+
