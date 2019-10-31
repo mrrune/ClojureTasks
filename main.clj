@@ -86,6 +86,31 @@
   )
 )
 
+;; Task 96
+;; Let us define a binary tree as "symmetric"
+;; if the left half of the tree is the mirror image of the right half of the tree.
+;; Write a predicate to determine whether or not a given binary tree is symmetric.
+;; (see To Tree, or not to Tree for a reminder on the tree representation we're using).
+;; (= (__ '(:a (:b nil nil) (:b nil nil))) true)
+;; (= (__ [1 [2 nil [3 [4 [5 nil nil] [6 nil nil]] nil]]
+;;          [2 [3 nil [4 [6 nil nil] [5 nil nil]]] nil]])
+;;   true)
+;; (= (__ [1 [2 nil [3 [4 [5 nil nil] [6 nil nil]] nil]]
+;;          [2 [3 nil [4 [5 nil nil] [6 nil nil]]] nil]])
+;;   false)
+(fn fun [[x y z :as col]]
+  (cond
+    (and (coll? y) (coll? z)) 
+      (and
+        (= (first y) (first z))
+        (fun (list :x (second y) (last z)))
+        (fun (list :x (second z) (last y)))
+      )
+    :else (and (= 3 (count col)) (= y z))
+  )
+)
+
+
 ;; Task 120
 ;; Write a function which takes a collection of integers as an argument. 
 ;; Return the count of how many elements are smaller than the sum of their squared component digits. 
@@ -106,4 +131,5 @@
     col)
   ))
 )
+
 
