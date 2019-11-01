@@ -69,6 +69,18 @@
   )
 )
 
+;; Task 147
+;; Write a function that, for any given input vector of numbers, returns an infinite lazy sequence of vectors, 
+;; where each next one is constructed from the previous following the rules used in Pascal's Triangle. 
+;; For example, for [3 1 2], the next row is [3 4 3 2].
+(fn fun [[x :as vec]]
+    (cons vec
+        (lazy-seq
+          (fun (into [] (concat [x] (map #(apply +' %) (partition 2 1 [0] vec)))))
+        )
+    )
+)
+
 ;; Task 95
 ;; 
 ;; Write a predicate which checks whether or not a given sequence represents a binary tree. 
