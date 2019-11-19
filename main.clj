@@ -162,3 +162,23 @@
     )
   )   
 )
+
+;; Task 115
+;; A balanced number is one whose component digits have the same sum on the left and right halves of the number.
+;; Write a function which accepts an integer n, and returns true iff n is balanced.
+;; (= true (__ 89089))
+(fn [x]
+  (= 0 (apply + 
+    (let [k (int (/ (count (str x)) 2)) ]
+      (map
+        #(- 
+          (Integer/parseInt (str %))
+          (Integer/parseInt (str %2))
+        )      
+        (take k (str x))
+        (take-last k (str x))
+      )
+    )
+  )
+ )
+)
