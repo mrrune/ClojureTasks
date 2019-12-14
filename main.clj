@@ -250,3 +250,34 @@
     col
   )    
 )
+
+;; Task 114
+;; take-while is great for filtering sequences, but it limited: you can only examine a single item of the sequence at a time.
+;; What if you need to keep track of some state as you go over the sequence?
+;; Write a function which accepts an integer n, a predicate p, and a sequence.
+;; It should return a lazy sequence of items in the list up to, but not including, 
+;; the nth item that satisfies the predicate.
+;; (= ["this" "is" "a" "sentence"]
+;;   (__ 3 #(some #{\i} %)
+;;         ["this" "is" "a" "sentence" "i" "wrote"]))
+
+(fn fun [n pred [x & r :as col]]
+  (let
+      [newN (if (every? pred [x]) (dec n) n)]
+    (when
+      (and
+        (> newN 0)
+        (not (empty? col))
+      )
+      (cons x
+        (lazy-seq   
+          (fun
+            newN
+            pred
+            r
+          )
+        )
+      )
+    )
+  )
+)
